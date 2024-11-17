@@ -5,6 +5,7 @@ import LatestNews from "../components/LatestNews";
 import Navbar from "../components/Navbar";
 import SocialLogin from "../components/SocialLogin";
 import FindUs from "../components/FindUs";
+import QZone from "../components/QZone";
 
 
 const HomeLayout = () => {
@@ -16,7 +17,7 @@ const HomeLayout = () => {
                     <LatestNews></LatestNews>
                 </section>
             </header>
-            <nav className="w-11/12 mx-auto my-6">
+            <nav className="w-11/12 mx-auto py-6">
                 <Navbar></Navbar>
             </nav>
             <main className="w-11/12 mx-auto grid md:grid-cols-12 gap-6 my-12">
@@ -33,6 +34,7 @@ const HomeLayout = () => {
                     <SocialLogin></SocialLogin>
                     <h3 className="text-xl font-semibold pb-8">Find Us On</h3>
                     <FindUs></FindUs>
+                    <QZone></QZone>
                 </aside>
             </main>
         </div>

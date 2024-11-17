@@ -1,6 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout";
 import CategoryNews from "../components/CategoryNews";
+import CareerLayout from "../layouts/CareerLayout";
+import AboutLayout from "../layouts/AboutLayout";
+import Login from "../layouts/Login";
+import Register from "../layouts/Register";
 
 
 
@@ -22,19 +26,23 @@ const router = createBrowserRouter([
     },
     {
         path: "/career",
-        element: <div>CAREER</div>
+        element: <CareerLayout></CareerLayout>
     },
     {
         path: "/about",
-        element: <div>ABOUT</div>
+        element: <AboutLayout></AboutLayout>
     },
     {
         path: "/news",
         element: <h1>News Layout</h1>,
     },
     {
-        path: "/auth",
-        element: <h1>Login</h1>,
+        path: "/login",
+        element: <Login></Login>,
+    },
+    {
+        path: "/register",
+        element: <Register></Register>
     },
     {
         path: "*",
