@@ -1,20 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import Loading from "../components/Loading";
 
 
 const Login = () => {
 
-    const {user, loginWithEmailAndPassword} = useContext(AuthContext);
-    const navigate = useNavigate();
+    const {user, loading, loginWithEmailAndPassword} = useContext(AuthContext);
     
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         loginWithEmailAndPassword(email, password);
-        // navigate("/");
     }
 
     return (

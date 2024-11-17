@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
 
-    const {user, createAccount} = useContext(AuthContext);
+    const {user, loading, createAccount} = useContext(AuthContext);
+    
     const handleRegister = e => {
         e.preventDefault();
         const form = e.target;
@@ -42,6 +43,10 @@ const Register = () => {
                             <span className="tex-xl font-semibold">Password</span>
                         </label>
                         <input type="password" placeholder="password" name="password" className="input input-bordered" required />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <input type="checkbox" className="checkbox outline-none" required/>
+                        <p>Accept our <Link>Terms & Conditions</Link></p>
                     </div>
                     <div className="form-control gap-4 mt-4">
                         <button className="btn btn-primary">Register</button>

@@ -8,32 +8,34 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
-    console.log(user);
+    const [loading, setLoading] = useState(true);
+    console.log(loading, user);
 
     // Google Sign-In
     const googleProvider = new GoogleAuthProvider();
-    const loginWithGoogle = async () => {
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
-            return setUser(result.user);
-        } catch (error) {
-            return alert(error.code);
-        }
+    const loginWithGoogle = () => {
+        setLoading(true);
+        return (
+            signInWithPopup(auth, googleProvider)
+            .then(result => setUser(result.user))
+            .catch(error => alert("ERROR", error.code))
+        );
     }
     
     // Github Sign-In
     const githubProvider = new GithubAuthProvider();
-    const loginWithGithub = async () => {
-        try {
-            const result = await signInWithPopup(auth, githubProvider);
-            return setUser(result.user);
-        } catch (error) {
-            return alert(error.code);
-        }
+    const loginWithGithub = () => {
+        setLoading(true);
+        return (
+            signInWithPopup(auth, githubProvider)
+            .then(result => setUser(result.user))
+            .catch(error => alert("ERROR",error.code))
+        );
     }
 
     // Email-Password Sign In
     const loginWithEmailAndPassword = (email, password) => {
+        setLoading(true);
         return (
             signInWithEmailAndPassword(auth, email, password)
             .then(result => setUser(result.user))
@@ -42,6 +44,7 @@ const AuthProvider = ({children}) => {
 
     // Create/Register/Sign-Up New User with Email-Password
     const createAccount = (email, password) => {
+        setLoading(true);
         return (
             createUserWithEmailAndPassword(auth, email, password)
             .then(result => setUser(result.user))
@@ -51,24 +54,18 @@ const AuthProvider = ({children}) => {
 
     // Log-Out 
     const logOut = () => {
-        const unsubscribe = () => {
-            signOut(auth)
-            .then(setUser(null))
-            .catch(error => alert("An Error Occurred"));
-            setUser(null);
-        }
-        return unsubscribe();
+        setLoading(true);
+        return signOut(auth);
     }
 
     useEffect(() => {
-        onAuthStateChanged(auth, currentUser => {
-            if (currentUser) {
+        const unsubscribe = onAuthStateChanged(auth, currentUser => {
                 setUser(currentUser);
-            }
-            else {
-                setUser(null);
-            }
+                setLoading(false);
         })
+        return () => {
+            unsubscribe();
+        }
     }, [])
 
     const authInfo = {
@@ -78,6 +75,8 @@ const AuthProvider = ({children}) => {
         loginWithGithub,
         loginWithEmailAndPassword,
         createAccount,
+        loading,
+        setLoading,
         logOut
     }
 

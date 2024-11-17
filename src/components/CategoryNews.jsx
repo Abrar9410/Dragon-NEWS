@@ -7,7 +7,7 @@ const CategoryNews = () => {
     const {data} = useLoaderData();
 
     return (
-        <div>
+        <div className="flex flex-col gap-4">
             {
                 data.map(news=>(
                     <NewsCard key={news._id} news={news}></NewsCard>
